@@ -2,7 +2,7 @@
 //  AppDelegate.h
 //  SKAlertController
 //
-//  Created by mac on 16/12/21.
+//  Created by Wei on 16/12/21.
 //
 //
 

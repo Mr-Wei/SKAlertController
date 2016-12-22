@@ -2,8 +2,8 @@
 //  ALPAlertController.m
 //  SKAlertControllerDemo
 //
-//  Created by Apple on 16/12/6.
-//  Copyright © 2016年 Apple. All rights reserved.
+//  Created by Wei on 16/12/6.
+//  Copyright © 2016年 Wei. All rights reserved.
 //
 
 #import "SKAlertController.h"
