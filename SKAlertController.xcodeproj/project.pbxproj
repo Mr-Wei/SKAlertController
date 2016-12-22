@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0465EA381E0BBDC600D76C48 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0465EA371E0BBDC600D76C48 /* README.md */; };
 		04FBB16A1E0A6C8D00657E0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FBB1691E0A6C8D00657E0D /* main.m */; };
 		04FBB16D1E0A6C8D00657E0D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FBB16C1E0A6C8D00657E0D /* AppDelegate.m */; };
 		04FBB1701E0A6C8D00657E0D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FBB16F1E0A6C8D00657E0D /* ViewController.m */; };
@@ -133,7 +132,7 @@
 		04FBB15D1E0A6C8C00657E0D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				TargetAttributes = {
 					04FBB1641E0A6C8C00657E0D = {
 						CreatedOnToolsVersion = 8.1;
@@ -177,7 +176,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0465EA381E0BBDC600D76C48 /* README.md in Sources */,
 				04FBB18B1E0A75A400657E0D /* SKAlertAnimationController.m in Sources */,
 				04FBB1881E0A713100657E0D /* SKAlertController.m in Sources */,
 				04FBB1701E0A6C8D00657E0D /* ViewController.m in Sources */,
@@ -218,6 +216,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -265,6 +264,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
