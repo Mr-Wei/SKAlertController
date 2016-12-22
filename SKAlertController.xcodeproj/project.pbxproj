@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0465EA381E0BBDC600D76C48 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 0465EA371E0BBDC600D76C48 /* README.md */; };
 		04FBB16A1E0A6C8D00657E0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FBB1691E0A6C8D00657E0D /* main.m */; };
 		04FBB16D1E0A6C8D00657E0D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FBB16C1E0A6C8D00657E0D /* AppDelegate.m */; };
 		04FBB1701E0A6C8D00657E0D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FBB16F1E0A6C8D00657E0D /* ViewController.m */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0465EA371E0BBDC600D76C48 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		04FBB1651E0A6C8D00657E0D /* SKAlertController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKAlertController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04FBB1691E0A6C8D00657E0D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04FBB16B1E0A6C8D00657E0D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 		04FBB1681E0A6C8D00657E0D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0465EA371E0BBDC600D76C48 /* README.md */,
 				04FBB1691E0A6C8D00657E0D /* main.m */,
 			);
 			name = "Supporting Files";
@@ -174,6 +177,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0465EA381E0BBDC600D76C48 /* README.md in Sources */,
 				04FBB18B1E0A75A400657E0D /* SKAlertAnimationController.m in Sources */,
 				04FBB1881E0A713100657E0D /* SKAlertController.m in Sources */,
 				04FBB1701E0A6C8D00657E0D /* ViewController.m in Sources */,
