@@ -175,9 +175,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(BOOL)shouldAutorotate{
-    return NO;
-}
 - (void)cancelButtonAction:(UIButton *)sender{
     self.cancelAction.handler(self.cancelAction);
     self.cancelAction.handler = nil;
