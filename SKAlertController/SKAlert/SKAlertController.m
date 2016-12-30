@@ -176,16 +176,18 @@
     // Dispose of any resources that can be recreated.
 }
 - (void)cancelButtonAction:(UIButton *)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
     self.cancelAction.handler(self.cancelAction);
     self.cancelAction.handler = nil;
     self.defaultAction.handler = nil;
-    [self dismissViewControllerAnimated:YES completion:nil];
+
 }
 - (void)defaultButtonAction:(UIButton *)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
     self.defaultAction.handler(self.defaultAction);
     self.cancelAction.handler = nil;
     self.defaultAction.handler = nil;
-    [self dismissViewControllerAnimated:YES completion:nil];
+
 }
 - (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
 {
