@@ -75,7 +75,7 @@
     messageLabel.textColor = [UIColor colorWithRed:130.00/255.00 green:135.00/255.00 blue:154.00/255.00 alpha:1];
     messageLabel.font = [UIFont systemFontOfSize:15];
     messageLabel.textAlignment = NSTextAlignmentCenter;
-    messageLabel.numberOfLines = 2;
+    messageLabel.numberOfLines = 3;
     messageLabel.text = self.msgStr;
     [contentView addSubview:messageLabel];
     self.messageLabel = messageLabel;
@@ -136,7 +136,7 @@
         self.messageLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.messageLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:15]];
         [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.messageLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-15]];
-         [self.view addConstraint: [NSLayoutConstraint constraintWithItem:self.messageLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:42]];
+         [self.view addConstraint: [NSLayoutConstraint constraintWithItem:self.messageLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:63]];
         if ([self.titleStr length]) {
             [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.messageLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:67]];
         }else{
