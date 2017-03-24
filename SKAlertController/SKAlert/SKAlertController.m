@@ -24,6 +24,7 @@
 
 @implementation SKAlertController
 + (instancetype)alertControllerWithTitle:(nullable NSString *)title message:(nullable NSString *)message{
+    NSParameterAssert(message);
     SKAlertController *alert = [[SKAlertController alloc]init];
     alert.titleStr = title;
     alert.msgStr = message;
@@ -76,7 +77,16 @@
     messageLabel.font = [UIFont systemFontOfSize:15];
     messageLabel.textAlignment = NSTextAlignmentCenter;
     messageLabel.numberOfLines = 3;
-    messageLabel.text = self.msgStr;
+    NSRange range = NSMakeRange(0, [self.msgStr length]);
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.msgStr];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.maximumLineHeight = 25;
+    paragraphStyle.minimumLineHeight = 25;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:range];
+    [attributedString addAttribute:NSFontAttributeName value:messageLabel.font range:range];
+    messageLabel.attributedText = attributedString;
+
     [contentView addSubview:messageLabel];
     self.messageLabel = messageLabel;
     
@@ -114,33 +124,37 @@
 - (void)addConstraints{
      self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     if (([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft)||([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight)) {
+        //横屏 固定宽度315  水平居中
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:315]];
         [self.view addConstraint: [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
 
     }else{
+        //竖屏  左右距屏幕30
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:30]];
         [self.view addConstraint: [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:-30]];
     }
+    //竖直方向整体居中
      [self.view addConstraint: [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
     if ([self.titleStr length]) {
+        //标题框   自身高22.5  左右15  上30
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:15]];
         [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-15]];
         [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:30]];
         [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:22.5]];
-        [self.view addConstraint: [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:210]];
-    }else{
-        [self.view addConstraint: [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:170]];
     }
     if ([self.msgStr length]) {
+        //内容框 左右15  最多三行由label属性决定 高度自适应
         self.messageLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.messageLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:15]];
         [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.messageLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-15]];
-         [self.view addConstraint: [NSLayoutConstraint constraintWithItem:self.messageLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:63]];
+        [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.messageLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:25]];
         if ([self.titleStr length]) {
-            [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.messageLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:67]];
+            //有标题内容框距离标题底部 10
+            [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.messageLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.titleLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:10]];
         }else{
-             [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.messageLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:30]];
+            //无标题内容框距顶部30
+            [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.messageLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:30]];
         }
     }
     if (self.cancelAction) {
@@ -152,9 +166,10 @@
             [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.cancelButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.defaultButton attribute:NSLayoutAttributeLeft multiplier:1.0 constant:-15]];
             [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.cancelButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.defaultButton attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
         }else{
-            [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.cancelButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:62.5]];
-            [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.cancelButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-62.5]];
+            [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.cancelButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+            [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.cancelButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:190]];
         }
+        [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.cancelButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.messageLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:25]];
     }
     if (self.defaultAction) {
         self.defaultButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -164,10 +179,10 @@
             [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.defaultButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-15]];
             [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.defaultButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.cancelButton attribute:NSLayoutAttributeRight multiplier:1.0 constant:15]];
         }else{
-            [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.defaultButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:62.5]];
-            [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.defaultButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-62.5]];
+            [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.defaultButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+            [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.defaultButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:190]];
         }
-
+        [self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:self.cancelButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.messageLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:25]];
     }
 }
 
